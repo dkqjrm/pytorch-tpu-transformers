@@ -758,7 +758,7 @@ def main():
 
     def tokenize_function(examples):
         with CaptureLogger(tok_logger) as cl:
-            output = tokenizer(examples[text_column_name], truncation=True, max_length=block_size, padding="max_length")
+            output = tokenizer(examples[text_column_name], truncation=True, max_length=data_args.block_size, padding="max_length")
         # clm input could be much much longer than block_size
         if "Token indices sequence length is longer than the" in cl.out:
             tok_logger.warning(
