@@ -695,13 +695,13 @@ def main():
             if "embed_tokens" in name:
                 xs.mark_sharding(param, spmd_mesh, ("model", "data"))
             elif "q_proj" in name or "k_proj" in name or "v_proj" in name:
-                xs.mark_sharding(param, spmd_mesh, ("data", "model"))
+                xs.mark_sharding(param, spmd_mesh, ("model", "data"))
             elif "o_proj" in name:
                 xs.mark_sharding(param, spmd_mesh, ("model", "data"))
             elif "gate_proj" in name or "up_proj" in name:
                 xs.mark_sharding(param, spmd_mesh, ("model", "data"))
             elif "down_proj" in name:
-                xs.mark_sharding(param, spmd_mesh, ("data", "model"))
+                xs.mark_sharding(param, spmd_mesh, ("model", "data"))
             elif "lm_head" in name:
                 xs.mark_sharding(param, spmd_mesh, ("model", "data"))
 
