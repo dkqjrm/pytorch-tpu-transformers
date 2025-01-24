@@ -224,7 +224,10 @@ class ModelArguments:
         default=False,
         metadata={"help": ("Enable PyTorch/XLA Pallas Flash Attention")},
     )
-
+    pre_process: bool = field(
+        default=False,
+        metadata={"help": ("Enable PyTorch/XLA Pallas Flash Attention")},
+    )
     def __post_init__(self):
         if self.config_overrides is not None and (
             self.config_name is not None or self.model_name_or_path is not None
@@ -766,23 +769,26 @@ def main():
                 " before being passed to the model."
             )
         return output
-
-    with training_args.main_process_first(desc="dataset map tokenization"):
-        if not data_args.streaming:
-            tokenized_datasets = raw_datasets.map(
-                tokenize_function,
-                batched=True,
-                num_proc=data_args.preprocessing_num_workers,
-                remove_columns=column_names,
-                load_from_cache_file=not data_args.overwrite_cache,
-                desc="Running tokenizer on dataset",
-            )
-        else:
-            tokenized_datasets = raw_datasets.map(
-                tokenize_function,
-                batched=True,
-                remove_columns=column_names,
-            )
+    if not pre_process:
+        with training_args.main_process_first(desc="dataset map tokenization"):
+            if not data_args.streaming:
+                tokenized_datasets = raw_datasets.map(
+                    tokenize_function,
+                    batched=True,
+                    num_proc=data_args.preprocessing_num_workers,
+                    remove_columns=column_names,
+                    load_from_cache_file=not data_args.overwrite_cache,
+                    desc="Running tokenizer on dataset",
+                )
+            else:
+                tokenized_datasets = raw_datasets.map(
+                    tokenize_function,
+                    batched=True,
+                    remove_columns=column_names,
+                )
+    else:
+        tokenized_datasets = raw_datasets
+    
     if hasattr(config, "max_position_embeddings"):
         max_pos_embeddings = config.max_position_embeddings
     else:
