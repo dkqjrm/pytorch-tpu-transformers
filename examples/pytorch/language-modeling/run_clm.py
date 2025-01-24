@@ -35,7 +35,7 @@ import contextlib
 import datasets
 import evaluate
 import torch
-from datasets import load_dataset
+from datasets import load_dataset, load_from_disk
 
 import transformers
 from transformers import (
@@ -242,7 +242,10 @@ class DataTrainingArguments:
     """
     Arguments pertaining to what data we are going to input our model for training and eval.
     """
-
+    dataset_path: Optional[str] = field(
+        default=None,
+        metadata={"help": "The name of the dataset to use (via the datasets library)."},
+    )
     dataset_name: Optional[str] = field(
         default=None,
         metadata={"help": "The name of the dataset to use (via the datasets library)."},
@@ -460,6 +463,8 @@ def main():
                 token=model_args.token,
                 streaming=data_args.streaming,
             )
+    elif data_args.dataset_path is not None:
+        raw_datasets = load_from_disk(data_args.dataset_path)
     else:
         data_files = {}
         dataset_args = {}
