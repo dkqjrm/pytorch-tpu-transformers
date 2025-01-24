@@ -826,13 +826,14 @@ def main():
                 group_texts,
                 batched=True,
                 num_proc=data_args.preprocessing_num_workers,
-                load_from_cache_file=not data_args.overwrite_cache,
+                load_from_cache_file=False, # not data_args.overwrite_cache,
                 desc=f"Grouping texts in chunks of {block_size}",
             )
         else:
             lm_datasets = tokenized_datasets.map(
                 group_texts,
                 batched=True,
+                load_from_cache_file=False
             )
     if training_args.do_train:
         if "train" not in tokenized_datasets:
