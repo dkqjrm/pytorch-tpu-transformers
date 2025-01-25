@@ -737,7 +737,7 @@ def main():
                 " before being passed to the model."
             )
         return output
-    if not pre_process:
+    if not model_args.pre_process:
         with training_args.main_process_first(desc="dataset map tokenization"):
             if not data_args.streaming:
                 tokenized_datasets = raw_datasets.map(
