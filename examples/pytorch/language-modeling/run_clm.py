@@ -793,22 +793,22 @@ def main():
     #
     # To speed up this part, we use multiprocessing. See the documentation of the map method for more information:
     # https://huggingface.co/docs/datasets/process#map
-
-    with training_args.main_process_first(desc="grouping texts together"):
-        if not data_args.streaming:
-            lm_datasets = tokenized_datasets.map(
-                group_texts,
-                batched=True,
-                num_proc=data_args.preprocessing_num_workers,
-                load_from_cache_file=False, # not data_args.overwrite_cache,
-                desc=f"Grouping texts in chunks of {block_size}",
-            )
-        else:
-            lm_datasets = tokenized_datasets.map(
-                group_texts,
-                batched=True,
-                load_from_cache_file=False
-            )
+    if not model_args.pre_process:
+        with training_args.main_process_first(desc="grouping texts together"):
+            if not data_args.streaming:
+                lm_datasets = tokenized_datasets.map(
+                    group_texts,
+                    batched=True,
+                    num_proc=data_args.preprocessing_num_workers,
+                    load_from_cache_file=False, # not data_args.overwrite_cache,
+                    desc=f"Grouping texts in chunks of {block_size}",
+                )
+            else:
+                lm_datasets = tokenized_datasets.map(
+                    group_texts,
+                    batched=True,
+                    load_from_cache_file=False
+                )
     if training_args.do_train:
         if "train" not in tokenized_datasets:
             raise ValueError("--do_train requires a train dataset")
