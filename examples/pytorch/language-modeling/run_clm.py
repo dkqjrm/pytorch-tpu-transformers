@@ -755,7 +755,7 @@ def main():
                     remove_columns=column_names,
                 )
     else:
-        lm_datasets = raw_datasets
+        lm_datasets = tokenized_datasets = raw_datasets
     
     if hasattr(config, "max_position_embeddings"):
         max_pos_embeddings = config.max_position_embeddings
