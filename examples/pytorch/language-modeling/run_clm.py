@@ -709,6 +709,7 @@ def main():
             r=8,
             lora_alpha=32,
             lora_dropout=0.0,
+            target_modules=["k_proj", "o_proj", "q_proj", "v_proj", "down_proj", "gate_proj", "up_proj"]
         )
         model = get_peft_model(model, peft_config)
         print("LoRA enabled")
