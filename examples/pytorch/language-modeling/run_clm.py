@@ -188,6 +188,9 @@ class ModelArguments:
             )
         },
     )
+    lora_rank: int = field(
+        default=8,
+    )
     spmd_dcn_parallelism: int = field(
         default=1,
         metadata={"help": ("Number of slices to run in data parallel")},
@@ -706,7 +709,7 @@ def main():
         peft_config = LoraConfig(
             task_type=TaskType.CAUSAL_LM,
             inference_mode=False,
-            r=8,
+            r=model_args.lora_rank,
             lora_alpha=32,
             lora_dropout=0.0,
             target_modules=["k_proj", "o_proj", "q_proj", "v_proj", "down_proj", "gate_proj", "up_proj"]
