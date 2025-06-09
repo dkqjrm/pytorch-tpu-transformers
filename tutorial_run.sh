@@ -1,7 +1,7 @@
 tssha() {
     gcloud compute tpus tpu-vm ssh "beomi@$1" --zone us-central2-b --worker=all --command "$2"
 }
-
+echo "[local] Killing TPU2"
 echo "[local] Killing TPU"
 tssha v4-256 "sudo fuser -k /dev/accel0"
 
