@@ -31,7 +31,7 @@ VOCAB_FILES_NAMES = {
 }
 
 
-MAX_MODEL_INPUT_SIZES = {"qwen/qwen-tokenizer": 32768}
+MAX_MODEL_INPUT_SIZES = {"Qwen/Qwen3-0.6B": 32768, "Qwen/Qwen3-1.8B": 32768}
 
 
 class Qwen3TokenizerFast(PreTrainedTokenizerFast):
