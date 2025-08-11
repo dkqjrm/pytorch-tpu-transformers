@@ -1,5 +1,3 @@
-export TMPDIR=/home/hyun/tmp
-mkdir -p $TMPDIR
 export PJRT_DEVICE=TPU
 export XLA_USE_SPMD=1
 export XLA_USE_BF16=1
