@@ -478,6 +478,7 @@ MODEL_NAMES_MAPPING = OrderedDict(
         ("qdqbert", "QDQBert"),
         ("qwen2", "Qwen2"),
         ("qwen2_moe", "Qwen2MoE"),
+        ("qwen3", "Qwen3"),
         ("rag", "RAG"),
         ("realm", "REALM"),
         ("recurrent_gemma", "RecurrentGemma"),
