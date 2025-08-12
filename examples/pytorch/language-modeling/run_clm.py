@@ -22,6 +22,7 @@ https://huggingface.co/models?filter=text-generation
 # You can also adapt this script on your own causal language modeling task. Pointers for this are left as comments.
 
 import logging
+import wandb
 import math
 import os
 import sys
@@ -309,23 +310,32 @@ class DataTrainingArguments:
         metadata={"help": "Whether to keep line breaks when using TXT files or not."},
     )
 
+@dataclass
+class CustomArguments:
+    wandb_key: str = field(
+        default=None,
+        metadata={"help": "Whether to keep line breaks when using TXT files or not."},
+    )
 
 def main():
     # See all possible arguments in src/transformers/training_args.py
     # or by passing the --help flag to this script.
     # We now keep distinct sets of args, for a cleaner separation of concerns.
-
+    
     parser = HfArgumentParser(
-        (ModelArguments, DataTrainingArguments, TrainingArguments)
+        (ModelArguments, DataTrainingArguments, TrainingArguments, CustomArguments)
     )
     if len(sys.argv) == 2 and sys.argv[1].endswith(".json"):
         # If we pass only one argument to the script and it's the path to a json file,
         # let's parse it to get our arguments.
-        model_args, data_args, training_args = parser.parse_json_file(
+        model_args, data_args, training_args, custom_args = parser.parse_json_file(
             json_file=os.path.abspath(sys.argv[1])
         )
     else:
-        model_args, data_args, training_args = parser.parse_args_into_dataclasses()
+        model_args, data_args, training_args, custom_args = parser.parse_args_into_dataclasses()
+    
+    if custom_args.wandb_key:
+        wandb.login(key=custom_args.wandb_key)
 
     if model_args.use_auth_token is not None:
         warnings.warn(
