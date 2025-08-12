@@ -68,7 +68,7 @@ import torch_xla.distributed.spmd as spmd
 xr.use_spmd()
 
 # Enable compile cache
-xr.initialize_cache("/root/files/tpu_cache", readonly=False)
+xr.initialize_cache("~/tpu_cache", readonly=False)
 
 
 # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
@@ -869,6 +869,7 @@ def main():
         tokenizer=tokenizer,
         # Data collator will default to DataCollatorWithPadding, so we change it.
         data_collator=collator,
+        max_seq_length=4096,
         compute_metrics=(
             compute_metrics
             if training_args.do_eval and not is_torch_xla_available()
