@@ -13,15 +13,15 @@ python examples/pytorch/language-modeling/run_clm.py \
   --model_name_or_path /home/hyun/Qwen3-4B \
   --tokenizer_name Qwen/Qwen2-0.5B \
   --dataset_name dkqjrm/korean-english-qwen-templated \
-  --per_device_train_batch_size 2 \
-  --per_device_eval_batch_size 2 \
-  --gradient_accumulation_steps 8 \
+  --per_device_train_batch_size 1 \
+  --per_device_eval_batch_size 1 \
+  --gradient_accumulation_steps 32 \
   --num_train_epochs 1 \
   --save_steps 200 \
   --logging_steps 1 \
   --do_train \
   --config_name /home/hyun/Qwen3-4B \
-  --output_dir /home/hyun/GoogleDrive/checkpoint \
+  --output_dir /home/hyun/checkpoint \
   --overwrite_output_dir \
   --remove_unused_columns no \
   --optim adafactor \
@@ -33,7 +33,7 @@ python examples/pytorch/language-modeling/run_clm.py \
   --report_to wandb \
   --wandb_key $WANDB_API_KEY \
   --peft_lora \
-  --lora_rank 16 \
-  --lora_alpha 32 \
+  --lora_rank 32 \
+  --lora_alpha 64 \
   --learning_rate 5e-5 \
   --warmup_ratio 0.1
