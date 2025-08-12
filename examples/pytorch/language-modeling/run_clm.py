@@ -57,7 +57,7 @@ from transformers.trainer_utils import get_last_checkpoint
 from transformers.utils import check_min_version, send_example_telemetry
 from transformers.utils.versions import require_version
 from accelerate import init_empty_weights
-from trl import SFTTrainer, SFTConfig, DataCollatorForCompletionOnlyLM
+from trl import SFTTrainer, DataCollatorForCompletionOnlyLM
 
 import torch_xla
 import torch_xla.debug.profiler as xp
@@ -861,7 +861,7 @@ def main():
             return metric.compute(predictions=preds, references=labels)
 
     # Initialize our Trainer
-    trainer = SFTTrainer(
+    trainer = Trainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset if training_args.do_train else None,
@@ -869,7 +869,6 @@ def main():
         tokenizer=tokenizer,
         # Data collator will default to DataCollatorWithPadding, so we change it.
         data_collator=collator,
-        max_seq_length=4096,
         compute_metrics=(
             compute_metrics
             if training_args.do_eval and not is_torch_xla_available()
