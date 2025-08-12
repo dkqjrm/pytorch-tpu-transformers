@@ -22,7 +22,7 @@ python examples/pytorch/language-modeling/run_clm.py \
   --do_train \
   --do_eval \
   --evaluation_strategy steps \
-  --eval_steps 100 \
+  --eval_steps 5 \
   --config_name /home/hyun/GoogleDrive/model/Qwen3-4B \
   --output_dir ~/result \
   --overwrite_output_dir \
