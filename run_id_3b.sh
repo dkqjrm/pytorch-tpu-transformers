@@ -20,9 +20,6 @@ python examples/pytorch/language-modeling/run_clm.py \
   --save_steps 200 \
   --logging_steps 1 \
   --do_train \
-  --do_eval \
-  --evaluation_strategy steps \
-  --eval_steps 200 \
   --config_name /home/hyun/Qwen3-4B \
   --output_dir /home/hyun/GoogleDrive/checkpoint \
   --overwrite_output_dir \
