@@ -10,11 +10,11 @@ export PROFILE_STEP=3
 export PROFILE_DURATION_MS=20000
 export PROFILE_LOGDIR=~/log
 python examples/pytorch/language-modeling/run_clm.py \
-  --model_name_or_path /home/hyun/Qwen3-0.6B \
+  --model_name_or_path /home/hyun/GoogleDrive/model/Qwen3-4B \
   --tokenizer_name Qwen/Qwen2-0.5B \
-  --dataset_name dkqjrm/korean-english-qwen-templated-small \
+  --dataset_name dkqjrm/korean-english-qwen-templated \
   --per_device_train_batch_size 8 \
-  --per_device_eval_batch_size 4 \
+  --per_device_eval_batch_size 8 \
   --gradient_accumulation_steps 16 \
   --num_train_epochs 1 \
   --save_steps 10 \
@@ -23,7 +23,7 @@ python examples/pytorch/language-modeling/run_clm.py \
   --do_eval \
   --evaluation_strategy steps \
   --eval_steps 100 \
-  --config_name /home/hyun/Qwen3-0.6B \
+  --config_name /home/hyun/GoogleDrive/model/Qwen3-4B \
   --output_dir ~/result \
   --overwrite_output_dir \
   --remove_unused_columns no \
