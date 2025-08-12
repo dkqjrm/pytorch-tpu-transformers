@@ -24,7 +24,7 @@ python examples/pytorch/language-modeling/run_clm.py \
   --evaluation_strategy steps \
   --eval_steps 5 \
   --config_name /home/hyun/Qwen3-4B \
-  --output_dir ~/result \
+  --output_dir /home/hyun/GoogleDrive/checkpoint \
   --overwrite_output_dir \
   --remove_unused_columns no \
   --optim adafactor \
