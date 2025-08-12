@@ -57,6 +57,7 @@ from transformers.trainer_utils import get_last_checkpoint
 from transformers.utils import check_min_version, send_example_telemetry
 from transformers.utils.versions import require_version
 from accelerate import init_empty_weights
+from trl import SFTTrainer, SFTConfig, DataCollatorForCompletionOnlyLM
 
 import torch_xla
 import torch_xla.debug.profiler as xp
@@ -482,6 +483,9 @@ def main():
                 **dataset_args,
             )
 
+    response_template = "<|im_start|>assistant"
+    collator = DataCollatorForCompletionOnlyLM(response_template, tokenizer=tokenizer)
+
     # See more about loading any type of standard or custom dataset (from files, python dict, pandas DataFrame, etc) at
     # https://huggingface.co/docs/datasets/loading_datasets.
 
@@ -720,9 +724,9 @@ def main():
             task_type=TaskType.CAUSAL_LM,
             inference_mode=False,
             r=model_args.lora_rank,
-            lora_alpha=32,
-            lora_dropout=0.0,
-            target_modules=["k_proj", "o_proj", "q_proj", "v_proj", "down_proj", "gate_proj", "up_proj"]
+            lora_alpha=model_args.lora_rank // 2,
+            lora_dropout=0.05,
+            target_modules=["all-linear"]
         )
         model = get_peft_model(model, peft_config)
         print("LoRA enabled")
@@ -857,14 +861,14 @@ def main():
             return metric.compute(predictions=preds, references=labels)
 
     # Initialize our Trainer
-    trainer = Trainer(
+    trainer = SFTTrainer(
         model=model,
         args=training_args,
         train_dataset=train_dataset if training_args.do_train else None,
         eval_dataset=eval_dataset if training_args.do_eval else None,
         tokenizer=tokenizer,
         # Data collator will default to DataCollatorWithPadding, so we change it.
-        data_collator=default_data_collator,
+        data_collator=collator,
         compute_metrics=(
             compute_metrics
             if training_args.do_eval and not is_torch_xla_available()
