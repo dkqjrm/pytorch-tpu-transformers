@@ -483,9 +483,6 @@ def main():
                 **dataset_args,
             )
 
-    response_template = "<|im_start|>assistant"
-    collator = DataCollatorForCompletionOnlyLM(response_template, tokenizer=tokenizer)
-
     # See more about loading any type of standard or custom dataset (from files, python dict, pandas DataFrame, etc) at
     # https://huggingface.co/docs/datasets/loading_datasets.
 
@@ -535,6 +532,9 @@ def main():
             "You are instantiating a new tokenizer from scratch. This is not supported by this script. "
             "You can do it from another script, save it, and load it from here, using --tokenizer_name."
         )
+
+    response_template = "<|im_start|>assistant"
+    collator = DataCollatorForCompletionOnlyLM(response_template, tokenizer=tokenizer)
 
     import torch_xla.core.xla_model as xm
     import torch_xla.distributed.spmd as xs
