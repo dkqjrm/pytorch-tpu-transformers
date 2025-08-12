@@ -38,5 +38,4 @@ python examples/pytorch/language-modeling/run_clm.py \
   --peft_lora \
   --lora_rank 32 \
   --learning_rate 5e-5 \
-  --warmup_ratio 0.1 \
-  --max_length 4096
+  --warmup_ratio 0.1
