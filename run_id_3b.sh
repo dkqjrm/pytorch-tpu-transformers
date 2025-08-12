@@ -12,12 +12,12 @@ export PROFILE_LOGDIR=~/log
 python examples/pytorch/language-modeling/run_clm.py \
   --model_name_or_path /home/hyun/Qwen3-4B \
   --tokenizer_name Qwen/Qwen2-0.5B \
-  --dataset_name dkqjrm/korean-english-qwen-templated-small \
+  --dataset_name dkqjrm/korean-english-qwen-templated \
   --per_device_train_batch_size 2 \
   --per_device_eval_batch_size 2 \
-  --gradient_accumulation_steps 16 \
+  --gradient_accumulation_steps 32 \
   --num_train_epochs 1 \
-  --save_steps 10 \
+  --save_steps 100 \
   --logging_steps 1 \
   --do_train \
   --do_eval \
