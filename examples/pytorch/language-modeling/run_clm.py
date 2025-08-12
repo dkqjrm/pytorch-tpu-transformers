@@ -192,7 +192,10 @@ class ModelArguments:
     )
     lora_rank: int = field(
         default=8,
-    )
+    ),
+    lora_alpha: int = field(
+        default=16,
+    ),
     spmd_dcn_parallelism: int = field(
         default=1,
         metadata={"help": ("Number of slices to run in data parallel")},
@@ -724,9 +727,9 @@ def main():
             task_type=TaskType.CAUSAL_LM,
             inference_mode=False,
             r=model_args.lora_rank,
-            lora_alpha=model_args.lora_rank // 2,
+            lora_alpha=model_args.lora_alpha,
             lora_dropout=0.05,
-            target_modules="all-linear"
+            target_modules=["k_proj", "o_proj", "q_proj", "v_proj", "down_proj", "gate_proj", "up_proj"]
         )
         model = get_peft_model(model, peft_config)
         print("LoRA enabled")
