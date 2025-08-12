@@ -726,7 +726,7 @@ def main():
             r=model_args.lora_rank,
             lora_alpha=model_args.lora_rank // 2,
             lora_dropout=0.05,
-            target_modules=["all-linear"]
+            target_modules="all-linear"
         )
         model = get_peft_model(model, peft_config)
         print("LoRA enabled")
