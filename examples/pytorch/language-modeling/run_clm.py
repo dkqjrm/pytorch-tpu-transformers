@@ -135,7 +135,7 @@ class ModelArguments:
         },
     )
     use_fast_tokenizer: bool = field(
-        default=True,
+        default=False,
         metadata={
             "help": "Whether to use one of the fast tokenizer (backed by the tokenizers library) or not."
         },
