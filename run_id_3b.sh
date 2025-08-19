@@ -14,14 +14,14 @@ python examples/pytorch/language-modeling/run_clm.py \
   --tokenizer_name /home/hyun/Qwen3-4B \
   --dataset_name dkqjrm/korean-english-8clips-no-desc-qwen-templated \
   --per_device_train_batch_size 1 \
-  --per_device_eval_batch_size 2 \
+  --per_device_eval_batch_size 1 \
   --gradient_accumulation_steps 32 \
-  --num_train_epochs 1 \
+  --num_train_epochs 3 \
   --save_steps 200 \
   --logging_steps 1 \
   --do_train \
   --config_name /home/hyun/Qwen3-4B \
-  --output_dir /home/hyun/checkpoint2 \
+  --output_dir /home/hyun/checkpoint3 \
   --overwrite_output_dir \
   --remove_unused_columns no \
   --optim adafactor \
