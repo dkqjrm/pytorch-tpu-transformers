@@ -10,8 +10,8 @@ export PROFILE_STEP=3
 export PROFILE_DURATION_MS=20000
 export PROFILE_LOGDIR=~/log
 python examples/pytorch/language-modeling/run_clm.py \
-  --model_name_or_path /home/hyun/Qwen3-4B \
-  --tokenizer_name /home/hyun/Qwen3-4B \
+  --model_name_or_path /home/hyun/Qwen3-4B-Instruct-2507 \
+  --tokenizer_name /home/hyun/Qwen3-4B-Instruct-2507 \
   --dataset_name dkqjrm/korean-english-8clips-no-desc-qwen-templated \
   --per_device_train_batch_size 1 \
   --per_device_eval_batch_size 1 \
@@ -20,7 +20,7 @@ python examples/pytorch/language-modeling/run_clm.py \
   --save_steps 200 \
   --logging_steps 1 \
   --do_train \
-  --config_name /home/hyun/Qwen3-4B \
+  --config_name /home/hyun/Qwen3-4B-Instruct-2507 \
   --output_dir /home/hyun/checkpoint4 \
   --overwrite_output_dir \
   --remove_unused_columns no \
